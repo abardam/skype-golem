@@ -126,6 +126,8 @@ namespace SkypeBot
                 playerDic[p_2].hp = 20;
             }
 
+            --playerDic[p].pots;
+
         }
     }
 }
