@@ -1,0 +1,11 @@
+c:\users\enzo\documents\visual studio 2010\Projects\SkypeBot\SkypeBot\bin\Debug\SkypeBot.exe
+c:\users\enzo\documents\visual studio 2010\Projects\SkypeBot\SkypeBot\bin\Debug\SkypeBot.pdb
+c:\users\enzo\documents\visual studio 2010\Projects\SkypeBot\SkypeBot\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\enzo\documents\visual studio 2010\Projects\SkypeBot\SkypeBot\obj\x86\Debug\Interop.SKYPE4COMLib.dll
+c:\users\enzo\documents\visual studio 2010\Projects\SkypeBot\SkypeBot\obj\x86\Debug\SkypeBot.csproj.ResolveComReference.cache
+c:\users\enzo\documents\visual studio 2010\Projects\SkypeBot\SkypeBot\obj\x86\Debug\SkypeBot.Form1.resources
+c:\users\enzo\documents\visual studio 2010\Projects\SkypeBot\SkypeBot\obj\x86\Debug\SkypeBot.Properties.Resources.resources
+c:\users\enzo\documents\visual studio 2010\Projects\SkypeBot\SkypeBot\obj\x86\Debug\GenerateResource.read.1.tlog
+c:\users\enzo\documents\visual studio 2010\Projects\SkypeBot\SkypeBot\obj\x86\Debug\GenerateResource.write.1.tlog
+c:\users\enzo\documents\visual studio 2010\Projects\SkypeBot\SkypeBot\obj\x86\Debug\SkypeBot.exe
+c:\users\enzo\documents\visual studio 2010\Projects\SkypeBot\SkypeBot\obj\x86\Debug\SkypeBot.pdb
