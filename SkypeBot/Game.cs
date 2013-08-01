@@ -56,7 +56,7 @@ namespace SkypeBot
             }
             else if (playerDic[p2].hp <= 0)
             {
-                form.say(p1 + " tries to attack " + p2 + ", but " + p2 + "is already dead.", ichat, "FIGHT");
+                form.say(p1 + " tries to attack " + p2 + ", but " + p2 + " is already dead.", ichat, "FIGHT");
             }
 
             else if (playerDic[p1].stun.CompareTo(DateTime.Now) > 0)
@@ -65,37 +65,36 @@ namespace SkypeBot
             }
             else
             {
-
-                if (special == "boot")
+                switch (special)
                 {
-                    form.say(p1 + " boots " + p2 + "'s head! " + p2 + " is stunned for 5 seconds!", ichat, "FIGHT");
-                    playerDic[p2].stun = DateTime.Now.AddSeconds(5);
-                }
-                else
-                {
+                    case "boot":
+                        form.say(p1 + " boots " + p2 + "'s head! " + p2 + " is stunned for 5 seconds!", ichat, "FIGHT");
+                        playerDic[p2].stun = DateTime.Now.AddSeconds(5);
+                        break;
+                    default:
+                        playerDic[p2].hp -= playerDic[p1].dmg;
 
-                    playerDic[p2].hp -= playerDic[p1].dmg;
+                        form.say(p1 + " attacks " + p2 + " for " + playerDic[p1].dmg + "!", ichat, "FIGHT");
+                        form.say(p2 + "[" + playerDic[p2].hp + "/20]", ichat, "FIGHT");
 
-                    form.say(p1 + " attacks " + p2 + " for " + playerDic[p1].dmg + "!", ichat, "FIGHT");
-                    form.say(p2 + "[" + playerDic[p2].hp + "/20]", ichat, "FIGHT");
-
-                    if (playerDic[p2].hp <= 0)
-                    {
-                        form.say(p1 + " loots the corpse!", ichat, "FIGHT");
-                        
-                        int ran = r.Next(2);
-
-                        if (ran == 0)
+                        if (playerDic[p2].hp <= 0)
                         {
-                            form.say(p1 + " finds a sword!", ichat, "FIGHT");
-                            playerDic[p1].dmg += playerDic[p2].dmg;
+                            form.say(p1 + " loots the corpse!", ichat, "FIGHT");
+
+                            int ran = r.Next(2);
+
+                            if (ran == 0)
+                            {
+                                form.say(p1 + " finds a sword!", ichat, "FIGHT");
+                                playerDic[p1].dmg += playerDic[p2].dmg;
+                            }
+                            else
+                            {
+                                form.say(p1 + " finds a health potion!", ichat, "FIGHT");
+                                playerDic[p1].pots++;
+                            }
                         }
-                        else
-                        {
-                            form.say(p1 + " finds a health potion!", ichat, "FIGHT");
-                            playerDic[p1].pots++;
-                        }
-                    }
+                        break;
                 }
             }
         }
