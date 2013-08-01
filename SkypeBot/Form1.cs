@@ -72,7 +72,7 @@ namespace SkypeBot
 
         private string ProcessCommand(string str, IChat ichat, ChatMessage msg)
         {
-            string result;
+            string result = "";
             switch (str.Split(' ')[0])
             {
                 case "roll":
@@ -90,8 +90,11 @@ namespace SkypeBot
                     break;
                 case "attack":
 
-                    result = parseAttack(str, ichat, msg);
+                    parseAttack(str, ichat, msg);
 
+                    break;
+                case "potion":
+                    parsePotion(str, ichat, msg);
                     break;
                 default:
                     result = "";
@@ -99,6 +102,34 @@ namespace SkypeBot
             }
 
             return result;
+        }
+
+        private void parsePotion(string str, IChat ichat, ChatMessage msg)
+        {
+            if (!gameDic.ContainsKey(ichat.Topic))
+            {
+                gameDic[ichat.Topic] = new Game(this, ichat);
+            }
+
+            string[] strs = str.Split(' ');
+
+            if (strs.Length > 1)
+            {
+                User target = findPlayer(strs[1], ichat);
+                
+                if (target == null)
+                {
+
+                    gameDic[ichat.Topic].BadAttack(msg.Sender.Handle, strs[1]);
+                    return;
+                }
+
+                gameDic[ichat.Topic].Potion(msg.Sender.Handle, target.Handle);
+            }
+            else
+            {
+                gameDic[ichat.Topic].Potion(msg.Sender.Handle);
+            }
         }
 
         private String parseAttack(string str, IChat ichat, ChatMessage msg)
@@ -118,7 +149,7 @@ namespace SkypeBot
                 if (target == null)
                 {
 
-                    gameDic[ichat.Topic].BadAttack(msg.Sender.Handle);
+                    gameDic[ichat.Topic].BadAttack(msg.Sender.Handle, strs[1]);
                     return "";
                 }
 
