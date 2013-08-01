@@ -12,6 +12,8 @@ namespace SkypeBot
         private const string nick = "BOT";
         private Dictionary<string, Game> gameDic;
 
+        private IChat log;
+
         public Form1()
         {
             InitializeComponent();
@@ -104,6 +106,14 @@ namespace SkypeBot
                     }
 
                     break;
+                case "invite":
+
+                    if (gameDic.ContainsKey(ichat.Topic))
+                    {
+                        gameDic[ichat.Topic].ichat.AddMembers(ichat.Members);
+                    }
+                    break;
+
                 default:
                     result = "";
                     break;
@@ -116,7 +126,11 @@ namespace SkypeBot
         {
             if (!gameDic.ContainsKey(ichat.Topic))
             {
-                gameDic[ichat.Topic] = new Game(this, ichat);
+                if(log == null)
+                    gameDic[ichat.Topic] = new Game(this, ichat);
+                else
+                    gameDic[ichat.Topic] = new Game(this, log);
+
 
             }
 
