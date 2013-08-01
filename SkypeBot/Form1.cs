@@ -96,6 +96,14 @@ namespace SkypeBot
                 case "potion":
                     parsePotion(str, ichat, msg);
                     break;
+                case "log":
+
+                    foreach (KeyValuePair<string, Game> g in gameDic)
+                    {
+                        g.Value.ichat = ichat;
+                    }
+
+                    break;
                 default:
                     result = "";
                     break;
@@ -104,13 +112,20 @@ namespace SkypeBot
             return result;
         }
 
-        private void parsePotion(string str, IChat ichat, ChatMessage msg)
+        private void initGame(IChat ichat)
         {
             if (!gameDic.ContainsKey(ichat.Topic))
             {
                 gameDic[ichat.Topic] = new Game(this, ichat);
+
             }
 
+        }
+
+        private void parsePotion(string str, IChat ichat, ChatMessage msg)
+        {
+            initGame(ichat);
+            
             string[] strs = str.Split(' ');
 
             if (strs.Length > 1)
@@ -134,10 +149,7 @@ namespace SkypeBot
 
         private String parseAttack(string str, IChat ichat, ChatMessage msg)
         {
-            if (!gameDic.ContainsKey(ichat.Topic))
-            {
-                gameDic[ichat.Topic] = new Game(this, ichat);
-            }
+            initGame(ichat);
 
             string[] strs = str.Split(' ');
 
@@ -411,6 +423,17 @@ namespace SkypeBot
             ret += "]";
 
             return rum + " "+ret;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            /*foreach(KeyValuePair<string, Game> g in gameDic){
+                foreach (User u in g.Value.ichat.Members)
+                {
+                    g.Value.ichat.Kick(u.Handle);
+                    g.Value.ichat.Leave();
+                }
+            }*/
         }
     }
 }

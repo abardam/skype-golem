@@ -26,7 +26,7 @@ namespace SkypeBot
     {
         private Dictionary<string, Player> playerDic;
         private Form1 form;
-        private IChat ichat;
+        public IChat ichat;
         private Random r;
 
 
