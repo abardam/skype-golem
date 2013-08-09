@@ -107,6 +107,8 @@ namespace SkypeBot
                     }*/
                     game.ichat = ichat;
 
+                    say("Setting this chat as the FIGHT log", ichat, "GOLEM");
+
                     break;
                 case "cast":
                     parseCast(str, ichat, msg);
@@ -142,10 +144,10 @@ namespace SkypeBot
 
             }*/
 
-            say("Golem starting up", ichat);
 
             if (game == null)
             {
+                say("Golem starting up", ichat,"GOLEM");
                 game = new Game(this, ichat);
             }
 
