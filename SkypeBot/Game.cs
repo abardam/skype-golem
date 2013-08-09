@@ -9,6 +9,7 @@ namespace SkypeBot
     class Player
     {
         public int hp;
+        public int mp;
         public int dmg;
         public DateTime stun;
         public int pots;
@@ -16,6 +17,7 @@ namespace SkypeBot
         public Player()
         {
             hp = 20;
+            mp = 15;
             dmg = 5;
             stun = DateTime.Now;
             pots = 0;
@@ -126,6 +128,32 @@ namespace SkypeBot
             }
 
             --playerDic[p].pots;
+
+        }
+
+        public void Cast(string p, string p_2 = "", string spell = "")
+        {
+            initPlayer(p);
+
+            int spellCost = 5;
+
+            if (playerDic[p].mp <= spellCost)
+            {
+                form.say(p + " tries to cast a spell, but is too weak!", ichat, "FIGHT");
+                return;
+            }
+
+            if (p_2 == "") // self-cast
+            {
+                form.say(p + " casts the " + spell + " spell!", ichat, "FIGHT");
+            }
+            else // cast other
+            {
+                initPlayer(p_2);
+                form.say(p + " casts the " + spell + " spell on " + p_2 + "!", ichat, "FIGHT");
+            }
+
+            playerDic[p].mp -= spellCost;
 
         }
     }

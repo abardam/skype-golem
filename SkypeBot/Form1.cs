@@ -106,6 +106,9 @@ namespace SkypeBot
                     }
 
                     break;
+                case "cast":
+                    parseCast(str, ichat, msg);
+                    break;
                 case "invite":
 
                     if (gameDic.ContainsKey(ichat.Topic))
@@ -159,6 +162,40 @@ namespace SkypeBot
             {
                 gameDic[ichat.Topic].Potion(msg.Sender.Handle);
             }
+        }
+
+        private void parseCast(string str, IChat ichat, ChatMessage msg)
+        {
+            initGame(ichat);
+
+            string[] strs = str.Split(' ');
+
+            if (strs.Length <= 1) // "cast"
+            {
+                return;
+            }
+            else
+            {
+                if (strs.Length == 2) // "cast light"
+                {
+                    gameDic[ichat.Topic].Cast(msg.Sender.Handle, "", strs[1]);
+
+                }
+                else // "cast noizde fireball large"
+                {
+                    User target = findPlayer(strs[1], ichat);
+
+                    if (target == null)
+                    {
+                        gameDic[ichat.Topic].BadAttack(msg.Sender.Handle, strs[1]);
+                        return;
+                    }
+
+                    gameDic[ichat.Topic].Cast(msg.Sender.Handle, target.Handle, strs[2]);
+                }
+            }
+
+
         }
 
         private String parseAttack(string str, IChat ichat, ChatMessage msg)
