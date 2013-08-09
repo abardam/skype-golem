@@ -105,6 +105,8 @@ namespace SkypeBot
                     {
                         g.Value.ichat = ichat;
                     }*/
+                    initGame(ichat);
+
                     game.ichat = ichat;
 
                     say("Setting this chat as the FIGHT log", ichat, "GOLEM");
