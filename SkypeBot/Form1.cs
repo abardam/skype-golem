@@ -10,7 +10,8 @@ namespace SkypeBot
         private Skype skype;
         private const string trigger = "!"; // Say !help
         private const string nick = "BOT";
-        private Dictionary<string, Game> gameDic;
+        //private Dictionary<string, Game> gameDic;
+        private Game game;
 
         private IChat log;
 
@@ -18,7 +19,7 @@ namespace SkypeBot
         {
             InitializeComponent();
 
-            gameDic = new Dictionary<string, Game>();
+            //gameDic = new Dictionary<string, Game>();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -99,22 +100,25 @@ namespace SkypeBot
                     parsePotion(str, ichat, msg);
                     break;
                 case "log":
-
+                    /*
                     foreach (KeyValuePair<string, Game> g in gameDic)
                     {
                         g.Value.ichat = ichat;
-                    }
+                    }*/
+                    game.ichat = ichat;
 
                     break;
                 case "cast":
                     parseCast(str, ichat, msg);
                     break;
                 case "invite":
-
+                    /*
                     if (gameDic.ContainsKey(ichat.Topic))
                     {
                         gameDic[ichat.Topic].ichat.AddMembers(ichat.Members);
-                    }
+                    }*/
+
+                    game.ichat.AddMembers(ichat.Members);
                     break;
 
                 default:
@@ -127,6 +131,7 @@ namespace SkypeBot
 
         private void initGame(IChat ichat)
         {
+            /*
             if (!gameDic.ContainsKey(ichat.Topic))
             {
                 if(log == null)
@@ -135,6 +140,13 @@ namespace SkypeBot
                     gameDic[ichat.Topic] = new Game(this, log);
 
 
+            }*/
+
+            say("Golem starting up", ichat);
+
+            if (game == null)
+            {
+                game = new Game(this, ichat);
             }
 
         }
@@ -152,15 +164,18 @@ namespace SkypeBot
                 if (target == null)
                 {
 
-                    gameDic[ichat.Topic].BadAttack(msg.Sender.Handle, strs[1]);
+                    //gameDic[ichat.Topic].BadAttack(msg.Sender.Handle, strs[1]);
+                    game.BadAttack(msg.Sender.Handle, strs[1]);
                     return;
                 }
 
-                gameDic[ichat.Topic].Potion(msg.Sender.Handle, target.Handle);
+                //gameDic[ichat.Topic]
+                game.Potion(msg.Sender.Handle, target.Handle);
             }
             else
             {
-                gameDic[ichat.Topic].Potion(msg.Sender.Handle);
+                //gameDic[ichat.Topic]
+                game.Potion(msg.Sender.Handle);
             }
         }
 
@@ -178,7 +193,8 @@ namespace SkypeBot
             {
                 if (strs.Length == 2) // "cast light"
                 {
-                    gameDic[ichat.Topic].Cast(msg.Sender.Handle, "", strs[1]);
+                    //gameDic[ichat.Topic]
+                    game.Cast(msg.Sender.Handle, "", strs[1]);
 
                 }
                 else // "cast noizde fireball large"
@@ -187,11 +203,13 @@ namespace SkypeBot
 
                     if (target == null)
                     {
-                        gameDic[ichat.Topic].BadAttack(msg.Sender.Handle, strs[1]);
+                        //gameDic[ichat.Topic]
+                        game.BadAttack(msg.Sender.Handle, strs[1]);
                         return;
                     }
 
-                    gameDic[ichat.Topic].Cast(msg.Sender.Handle, target.Handle, strs[2]);
+                    //gameDic[ichat.Topic]
+                    game.Cast(msg.Sender.Handle, target.Handle, strs[2]);
                 }
             }
 
@@ -212,17 +230,20 @@ namespace SkypeBot
                 if (target == null)
                 {
 
-                    gameDic[ichat.Topic].BadAttack(msg.Sender.Handle, strs[1]);
+                    //gameDic[ichat.Topic]
+                    game.BadAttack(msg.Sender.Handle, strs[1]);
                     return "";
                 }
 
                 if (strs.Length > 2)
                 {
-                    gameDic[ichat.Topic].Attack(msg.Sender.Handle, target.Handle, strs[2]);
+                    //gameDic[ichat.Topic]
+                    game.Attack(msg.Sender.Handle, target.Handle, strs[2]);
                 }
                 else
                 {
-                    gameDic[ichat.Topic].Attack(msg.Sender.Handle, target.Handle);
+                    //gameDic[ichat.Topic]
+                    game.Attack(msg.Sender.Handle, target.Handle);
                 }
             }
 
